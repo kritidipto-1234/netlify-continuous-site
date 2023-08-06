@@ -16,8 +16,8 @@ function LinkTag({number}) {
   }
 
   return (
-    <div className={styles.anchorWrapper} style={{backgroundColor:color}} onMouseEnter={colorChange.bind(null,false)} onMouseLeave={colorChange.bind(null,true)}>
-      <Link id={number}  to="about">
+    <div className={styles.anchorWrapper} style={{backgroundColor:color}} >
+      <Link onMouseEnter={colorChange.bind(null,false)} onMouseLeave={colorChange.bind(null,true)} id={number}  to="about">
         React Link tag {number}
       </Link>
     </div>
