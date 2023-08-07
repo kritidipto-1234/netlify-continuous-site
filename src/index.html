@@ -7,11 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Start VWO Async SmartCode -->
   <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
+  <script>
+    var kritiSiteAcc = +new URLSearchParams(window.location.search).get('id') || 640628;
+    console.log("account id", kritiSiteAcc)
+  </script>
   <script type="text/javascript" id="vwoCode">
     window._vwo_code =
       window._vwo_code ||
       (function () {
-        var account_id = 640628,
+        var account_id = kritiSiteAcc,
           version = 1.5,
           settings_tolerance = 2000,
           library_tolerance = 2500,
