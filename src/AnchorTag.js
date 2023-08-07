@@ -17,7 +17,7 @@ function AnchorTag({number}) {
 
   return (
     <div className={styles.anchorWrapper} style={{backgroundColor:color}}>
-      <a id={number}onMouseEnter={colorChange.bind(null,false)} onMouseLeave={colorChange.bind(null,true)}  href="about">
+      <a id={number}onMouseEnter={colorChange.bind(null,false)} onClick={console.log} onMouseLeave={colorChange.bind(null,true)}  href="about">
         React Anchor tag {number}
       </a>
     </div>
