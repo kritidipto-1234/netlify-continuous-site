@@ -34,6 +34,9 @@
     VWO.push(['onEventReceive', 'eCA', function (data) {
       console.log("eCA", data);
     }]);
+    VWO.push(['onEventReceive', 'wFLR', function (data) {
+      console.log("widget frequency limit reached", data);
+    }]);
   </script>
   <!-- End VWO Async SmartCode -->
   <title>VWO 5 Events Continous intergration site</title>
