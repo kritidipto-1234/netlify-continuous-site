@@ -172,7 +172,7 @@
         if (!url) return;
         log('GET ' + url, '#569cd6');
         fetch(url,{
-            targetAddressSpace: "private",  // tells Chrome upfront: "this is a local network request"
+            targetAddressSpace: "loopback",  // tells Chrome upfront: "this is a local network request"
           })
           .then(function (res) {
             log('Status: ' + res.status + ' ' + res.statusText, res.ok ? '#6a9955' : '#f48771');
