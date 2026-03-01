@@ -142,6 +142,57 @@
   <!--React project-->
   kriti
   <div id="root" style="height: 150vh;"></div>
+
+  <div style="position:fixed;bottom:0;left:0;right:0;background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:13px;z-index:99999;border-top:2px solid #007acc;">
+    <div style="display:flex;align-items:center;padding:6px 10px;gap:8px;background:#252526;">
+      <label style="color:#888;white-space:nowrap;">GET</label>
+      <input id="lna-url" type="text" placeholder="https://example.com/api" style="flex:1;padding:5px 8px;border:1px solid #3c3c3c;border-radius:3px;background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:13px;outline:none;" />
+      <button id="lna-send" style="padding:5px 14px;background:#007acc;color:#fff;border:none;border-radius:3px;cursor:pointer;font-family:monospace;font-size:13px;">Send</button>
+      <button id="lna-clear" style="padding:5px 10px;background:#3c3c3c;color:#aaa;border:none;border-radius:3px;cursor:pointer;font-family:monospace;font-size:13px;">Clear</button>
+    </div>
+    <pre id="lna-log" style="margin:0;padding:8px 10px;max-height:180px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;font-size:12px;"></pre>
+  </div>
+
+  <script>
+    (function () {
+      var urlInput = document.getElementById('lna-url');
+      var logEl = document.getElementById('lna-log');
+
+      function log(msg, color) {
+        var line = document.createElement('div');
+        line.style.color = color || '#d4d4d4';
+        line.style.marginBottom = '4px';
+        line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+        logEl.appendChild(line);
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+
+      document.getElementById('lna-send').addEventListener('click', function () {
+        var url = urlInput.value.trim();
+        if (!url) return;
+        log('GET ' + url, '#569cd6');
+        fetch(url)
+          .then(function (res) {
+            log('Status: ' + res.status + ' ' + res.statusText, res.ok ? '#6a9955' : '#f48771');
+            return res.text();
+          })
+          .then(function (body) {
+            log(body.length > 2000 ? body.substring(0, 2000) + '... (truncated)' : body, '#d4d4d4');
+          })
+          .catch(function (err) {
+            log('Error: ' + err.message, '#f48771');
+          });
+      });
+
+      urlInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') document.getElementById('lna-send').click();
+      });
+
+      document.getElementById('lna-clear').addEventListener('click', function () {
+        logEl.innerHTML = '';
+      });
+    })();
+  </script>
 </body>
 
 </html>
