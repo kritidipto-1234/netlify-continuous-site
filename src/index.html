@@ -147,6 +147,12 @@
     <div style="display:flex;align-items:center;padding:6px 10px;gap:8px;background:#252526;">
       <label style="color:#888;white-space:nowrap;">GET</label>
       <input id="lna-url" type="text" placeholder="https://example.com/api" style="flex:1;padding:5px 8px;border:1px solid #3c3c3c;border-radius:3px;background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:13px;outline:none;" />
+      <select id="lna-addr-space" style="padding:5px 6px;border:1px solid #3c3c3c;border-radius:3px;background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:13px;outline:none;">
+        <option value="loopback">loopback</option>
+        <option value="local">local</option>
+        <option value="private">private</option>
+        <option value="public">public</option>
+      </select>
       <button id="lna-send" style="padding:5px 14px;background:#007acc;color:#fff;border:none;border-radius:3px;cursor:pointer;font-family:monospace;font-size:13px;">Send</button>
       <button id="lna-clear" style="padding:5px 10px;background:#3c3c3c;color:#aaa;border:none;border-radius:3px;cursor:pointer;font-family:monospace;font-size:13px;">Clear</button>
     </div>
@@ -156,6 +162,7 @@
   <script>
     (function () {
       var urlInput = document.getElementById('lna-url');
+      var addrSpaceSelect = document.getElementById('lna-addr-space');
       var logEl = document.getElementById('lna-log');
 
       function log(msg, color) {
@@ -170,9 +177,10 @@
       document.getElementById('lna-send').addEventListener('click', function () {
         var url = urlInput.value.trim();
         if (!url) return;
-        log('GET ' + url, '#569cd6');
-        fetch(url,{
-            targetAddressSpace: "loopback",  // tells Chrome upfront: "this is a local network request"
+        var addrSpace = addrSpaceSelect.value;
+        log('GET ' + url + ' [' + addrSpace + ']', '#569cd6');
+        fetch(url, {
+            targetAddressSpace: addrSpace,
           })
           .then(function (res) {
             log('Status: ' + res.status + ' ' + res.statusText, res.ok ? '#6a9955' : '#f48771');
